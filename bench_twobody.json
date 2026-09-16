@@ -1,0 +1,45 @@
+{
+  "name": "bench_twobody",
+  "version": "1.0",
+  "description": "Free-floating base body + revolute-jointed arm, no contact geometry. Used to verify conservation of linear momentum (system CG trajectory) and mechanical energy for the articulated RNEA/Jacobian formulation.",
+  "units": {"length": "meters", "mass": "kilograms", "time": "seconds"},
+  "bodies": {
+    "base": {
+      "mass": 3.0,
+      "inertia": [0.05, 0.05, 0.05, 0.0, 0.0, 0.0],
+      "center_of_mass": [0.0, 0.0, 0.0]
+    },
+    "arm": {
+      "mass": 1.0,
+      "inertia": [0.0208, 0.0208, 0.0005, 0.0, 0.0, 0.0],
+      "center_of_mass": [0.0, 0.25, 0.0]
+    }
+  },
+  "joints": [
+    {
+      "name": "root_joint",
+      "type": "free",
+      "parent": "GROUND",
+      "child": "base",
+      "T1": [[1,0,0,0],[0,1,0,0],[0,0,1,0],[0,0,0,1]],
+      "T2": [[1,0,0,0],[0,1,0,0],[0,0,1,0],[0,0,0,1]],
+      "T2_inv": [[1,0,0,0],[0,1,0,0],[0,0,1,0],[0,0,0,1]]
+    },
+    {
+      "name": "test_pivot",
+      "type": "revolute",
+      "parent": "base",
+      "child": "arm",
+      "T1": [[1,0,0,0],[0,0,1,0],[0,-1,0,-0.15],[0,0,0,1]],
+      "T2": [[1,0,0,0],[0,1,0,0],[0,0,1,0],[0,0,0,1]],
+      "T2_inv": [[1,0,0,0],[0,1,0,0],[0,0,1,0],[0,0,0,1]],
+      "note": "T1 rotation = Rx(-90 deg) so the joint's local Z axis (revolute axis) points along the parent's world Y axis => hinge is horizontal, arm swings in the X-Z (vertical) plane."
+    }
+  ],
+  "metadata": {
+    "name": "OpenMBD Benchmark - Two-Body Chain",
+    "version": "1.0.0",
+    "description": "Verification model: free base + revolute arm, no contact.",
+    "license": "MIT License"
+  }
+}

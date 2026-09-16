@@ -1,0 +1,60 @@
+{
+  "name": "bench_threebody",
+  "version": "1.0",
+  "description": "Free base + two revolute-jointed links in series (base->arm1->arm2), no contact geometry. Verifies the RNEA backward-pass recursion propagates correctly across TWO joint levels, not just one.",
+  "units": {"length": "meters", "mass": "kilograms", "time": "seconds"},
+  "bodies": {
+    "base": {
+      "mass": 4.0,
+      "inertia": [0.06, 0.06, 0.06, 0.0, 0.0, 0.0],
+      "center_of_mass": [0.0, 0.0, 0.0]
+    },
+    "arm1": {
+      "mass": 1.0,
+      "inertia": [0.021, 0.021, 0.0006, 0.0, 0.0, 0.0],
+      "center_of_mass": [0.0, 0.25, 0.0]
+    },
+    "arm2": {
+      "mass": 0.6,
+      "inertia": [0.008, 0.008, 0.0003, 0.0, 0.0, 0.0],
+      "center_of_mass": [0.0, 0.2, 0.0]
+    }
+  },
+  "joints": [
+    {
+      "name": "root_joint",
+      "type": "free",
+      "parent": "GROUND",
+      "child": "base",
+      "T1": [[1,0,0,0],[0,1,0,0],[0,0,1,0],[0,0,0,1]],
+      "T2": [[1,0,0,0],[0,1,0,0],[0,0,1,0],[0,0,0,1]],
+      "T2_inv": [[1,0,0,0],[0,1,0,0],[0,0,1,0],[0,0,0,1]]
+    },
+    {
+      "name": "pivot1",
+      "type": "revolute",
+      "parent": "base",
+      "child": "arm1",
+      "T1": [[1,0,0,0],[0,0,1,0],[0,-1,0,-0.15],[0,0,0,1]],
+      "T2": [[1,0,0,0],[0,1,0,0],[0,0,1,0],[0,0,0,1]],
+      "T2_inv": [[1,0,0,0],[0,1,0,0],[0,0,1,0],[0,0,0,1]],
+      "note": "T1 rotation = Rx(-90 deg): joint axis (its local Z) = base's world Y axis at t=0."
+    },
+    {
+      "name": "pivot2",
+      "type": "revolute",
+      "parent": "arm1",
+      "child": "arm2",
+      "T1": [[1,0,0,0],[0,1,0,0.5],[0,0,1,0],[0,0,0,1]],
+      "T2": [[1,0,0,0],[0,1,0,0],[0,0,1,0],[0,0,0,1]],
+      "T2_inv": [[1,0,0,0],[0,1,0,0],[0,0,1,0],[0,0,0,1]],
+      "note": "T1 rotation = identity: joint axis = arm1's own local Z axis, which (because of pivot1's Rx(-90)) is itself already world Y at t=0 -- so both joints share the same axis and the chain stays planar. T1 translation (0,0.5,0) = arm1's far end, 0.5 m along arm1's local +Y (its hang direction) from the pivot1 joint."
+    }
+  ],
+  "metadata": {
+    "name": "OpenMBD Benchmark - Three-Body Chain",
+    "version": "1.0.0",
+    "description": "Verification model: free base + 2 revolute links in series, no contact.",
+    "license": "MIT License"
+  }
+}

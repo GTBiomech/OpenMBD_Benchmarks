@@ -1,0 +1,44 @@
+{
+  "name": "bench_spherical",
+  "version": "1.0",
+  "description": "Free-floating base + one spherical (ball-joint) arm, no contact geometry. Exercises the dof=4 quaternion-joint RNEA/Jacobian/integration path.",
+  "units": {"length": "meters", "mass": "kilograms", "time": "seconds"},
+  "bodies": {
+    "base": {
+      "mass": 2.5,
+      "inertia": [0.04, 0.05, 0.06, 0.0, 0.0, 0.0],
+      "center_of_mass": [0.0, 0.0, 0.0]
+    },
+    "arm": {
+      "mass": 0.8,
+      "inertia": [0.006, 0.010, 0.013, 0.0, 0.0, 0.0],
+      "center_of_mass": [0.0, 0.0, -0.22]
+    }
+  },
+  "joints": [
+    {
+      "name": "root_joint",
+      "type": "free",
+      "parent": "GROUND",
+      "child": "base",
+      "T1": [[1,0,0,0],[0,1,0,0],[0,0,1,0],[0,0,0,1]],
+      "T2": [[1,0,0,0],[0,1,0,0],[0,0,1,0],[0,0,0,1]],
+      "T2_inv": [[1,0,0,0],[0,1,0,0],[0,0,1,0],[0,0,0,1]]
+    },
+    {
+      "name": "ball_joint",
+      "type": "spherical",
+      "parent": "base",
+      "child": "arm",
+      "T1": [[1,0,0,0],[0,1,0,0],[0,0,1,-0.15],[0,0,0,1]],
+      "T2": [[1,0,0,0],[0,1,0,0],[0,0,1,0],[0,0,0,1]],
+      "T2_inv": [[1,0,0,0],[0,1,0,0],[0,0,1,0],[0,0,0,1]]
+    }
+  ],
+  "metadata": {
+    "name": "OpenMBD Benchmark - Spherical Joint Chain",
+    "version": "1.0.0",
+    "description": "Verification model: free base + spherical (ball-joint) arm, no contact.",
+    "license": "MIT License"
+  }
+}

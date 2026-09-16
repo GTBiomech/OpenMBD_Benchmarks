@@ -1,0 +1,30 @@
+{
+  "name": "bench_freebody",
+  "version": "1.0",
+  "description": "Single free rigid body, no contact geometry. Used to verify translational (projectile) and rotational (torque-free Euler) dynamics.",
+  "units": {"length": "meters", "mass": "kilograms", "time": "seconds"},
+  "bodies": {
+    "body1": {
+      "mass": 2.0,
+      "inertia": [0.030, 0.050, 0.080, 0.0, 0.0, 0.0],
+      "center_of_mass": [0.0, 0.0, 0.0]
+    }
+  },
+  "joints": [
+    {
+      "name": "root_joint",
+      "type": "free",
+      "parent": "GROUND",
+      "child": "body1",
+      "T1": [[1,0,0,0],[0,1,0,0],[0,0,1,0],[0,0,0,1]],
+      "T2": [[1,0,0,0],[0,1,0,0],[0,0,1,0],[0,0,0,1]],
+      "T2_inv": [[1,0,0,0],[0,1,0,0],[0,0,1,0],[0,0,0,1]]
+    }
+  ],
+  "metadata": {
+    "name": "OpenMBD Benchmark - Free Rigid Body",
+    "version": "1.0.0",
+    "description": "Verification model: single free-flying rigid body, asymmetric inertia, no contact.",
+    "license": "MIT License"
+  }
+}
