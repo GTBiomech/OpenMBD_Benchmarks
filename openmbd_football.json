@@ -1,0 +1,255 @@
+{
+  "name": "openmbd_football",
+  "version": "1.0",
+  "citation": "Tierney. OpenMBD: An Open-Source Multibody Dynamics Simulator for Biomechanics Research and Education. F1000Research, 2026.",
+  "description": "Size 5 association football (single rigid body, one spherical ellipsoid) with literature-average properties.",
+  "units": {
+    "length": "meters",
+    "mass": "kilograms",
+    "time": "seconds"
+  },
+  "mass_kg": 0.43,
+  "bodies": {
+    "ball": {
+      "mass": 0.43,
+      "inertia": [
+        0.003457,
+        0.003457,
+        0.003457,
+        0,
+        0,
+        0
+      ],
+      "center_of_mass": [
+        0,
+        0,
+        0
+      ],
+      "ellipsoids": [
+        {
+          "name": "ball_geom",
+          "dimensions": [
+            0.1098,
+            0.1098,
+            0.1098
+          ],
+          "local_position": [
+            0,
+            0,
+            0
+          ],
+          "local_orientation": [
+            [
+              1,
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              1,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              1,
+              0
+            ],
+            [
+              0,
+              0,
+              0,
+              1
+            ]
+          ],
+          "force_curve": [
+            [
+              0,
+              0.0
+            ],
+            [
+              0.005,
+              158.0
+            ],
+            [
+              0.01,
+              316.0
+            ],
+            [
+              0.02,
+              632.0
+            ],
+            [
+              0.03,
+              948.0
+            ],
+            [
+              0.04,
+              1264.0
+            ],
+            [
+              0.05,
+              1580.0
+            ],
+            [
+              0.06,
+              1896.0
+            ]
+          ],
+          "unload_curve": [
+            [
+              0,
+              0.0
+            ],
+            [
+              0.005,
+              110.6
+            ],
+            [
+              0.01,
+              221.2
+            ],
+            [
+              0.02,
+              442.4
+            ],
+            [
+              0.03,
+              663.6
+            ],
+            [
+              0.04,
+              884.8
+            ],
+            [
+              0.05,
+              1106.0
+            ],
+            [
+              0.06,
+              1327.2
+            ]
+          ],
+          "hysteresis_slope": 316000.0
+        }
+      ]
+    }
+  },
+  "joints": [
+    {
+      "name": "rootJoint",
+      "type": "free",
+      "parent": "GROUND",
+      "child": "ball",
+      "T1": [
+        [
+          1,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          1,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          1,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          1
+        ]
+      ],
+      "T2": [
+        [
+          1,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          1,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          1,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          1
+        ]
+      ],
+      "T2_inv": [
+        [
+          1,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          1,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          1,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          1
+        ]
+      ]
+    }
+  ],
+  "metadata": {
+    "name": "OpenMBD Football Model",
+    "version": "1.0.0",
+    "description": "Size 5 football: literature-average mass, size, stiffness and restitution.",
+    "license": "GNU General Public License v3",
+    "contact": "Dr Gregory Tierney (g.tierney@ulster.ac.uk)",
+    "properties": {
+      "mass": "0.430 kg: midpoint of the Laws of the Game size 5 range 410-450 g (IFAB Law 2); measured size 5 balls 0.43-0.44 kg (Shewchenko et al. 2005; Auger et al. 2020)",
+      "radius": "0.1098 m: circumference 0.69 m, midpoint of the Laws of the Game range 0.68-0.70 m (IFAB Law 2)",
+      "inertia": "0.003457 kg m^2: thin spherical shell, 2/3 m r^2",
+      "stiffness": "31.6 kN/m linear: mean of four size 5 match balls, 25.9-36.7 kN/m (Shewchenko et al. 2005); within 22.1-28.1 N/mm (Queen et al. 2003) to 25-45 kN/m (Tierney et al. 2021) ranges",
+      "restitution": "unloading curve = 0.70 x loading curve with steep hysteresis slope, giving a coefficient of restitution of about 0.84, the midpoint of the 1.25-1.55 m rebound required from a 2 m drop (FIFA Quality Programme, summarised by Mills 2024)",
+      "inflation_pressure": "not modelled explicitly; stiffness corresponds to match balls at nominal pressure (Laws of the Game range 0.6-1.1 atm)"
+    },
+    "usage": "Contact settings (simulation-wide): coefficient of friction 0.4 (boot-ball 0.38, Tan et al. 2020; ball on leather 0.37-0.62). Contact damping 15 N s/m for kicking: with the right-leg model at 18.6 m/s this gives a foot-ball coefficient of restitution of 0.59, contact time 11.5 ms and ball/foot speed ratio 1.39 (measured: e 0.58, Dorge et al. 2002; contact 9-12 ms, Nunome et al. 2012). Contact damping 0 N s/m for ball-ground bounce only (2 m drop rebound 1.41 m); with 15 N s/m the 2 m drop rebound falls to 0.92 m (e 0.68). The default 150 N s/m is far too high for a 0.43 kg ball (foot-ball e 0.12).",
+    "limitations": "Linear, rate-independent contact; restitution does not fall with impact speed (measured falls of about 0.2 over 30 m/s, Price 2005 cited by Mills 2024); no aerodynamic drag or lift; rigid-body spin with no shell deformation coupling.",
+    "sources": [
+      "IFAB. Laws of the Game 2024/25, Law 2 - The Ball. International Football Association Board, Zurich.",
+      "Shewchenko N, Withnall C, Keown M, Gittens R, Dvorak J (2005) Heading in football. Part 3: Effect of ball properties on head response. Br J Sports Med 39(Suppl 1):i33-i39, doi:10.1136/bjsm.2005.019059",
+      "Queen RM, Weinhold PS, Kirkendall DT, Yu B (2003) Theoretical study of the effect of ball properties on impact force in soccer heading. Med Sci Sports Exerc 35(12):2069-2076, doi:10.1249/01.MSS.0000099081.20125.A5",
+      "Tierney GJ, Power J, Simms C (2021) Force experienced by the head during heading is influenced more by speed than the mechanical properties of the football. Scand J Med Sci Sports 31(1):124-131, doi:10.1111/sms.13816",
+      "Auger J et al. (2020) Factors affecting peak impact force during soccer headers and implications for the mitigation of head injuries. PLoS ONE 15:e0240162, doi:10.1371/journal.pone.0240162",
+      "Oliva-Lozano JM et al. (2024) Potential effects of soccer ball characteristics on ball-to-head contact: a systematic review. J Funct Morphol Kinesiol 9:210, doi:10.3390/jfmk9040210 (tabulates the stiffness and mass values above)",
+      "Mills K (2024) Understanding the mechanisms that govern the impact behaviour of a football. PhD thesis, Sheffield Hallam University, https://shura.shu.ac.uk/35661/ (summarises the FIFA Quality Programme rebound requirement)",
+      "Dorge HC, Bull Andersen T, Sorensen H, Simonsen EB (2002) Biomechanical differences in soccer kicking with the preferred and the non-preferred leg. J Sports Sci 20:293-299",
+      "Tan AM, Weizman Y, Alam F, Fuss FK (2020) The coefficient of friction of soccer balls. Proceedings 49:92, doi:10.3390/proceedings2020049092",
+      "Nunome H, Shinkai H, Ikegami Y (2012) Ball impact kinematics and dynamics in soccer kicking. Proc 30th Int Conf Biomechanics in Sports, Melbourne (keynote)"
+    ]
+  }
+}

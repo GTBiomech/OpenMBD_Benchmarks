@@ -1,0 +1,77 @@
+{
+    "dt": "0.00001",
+    "out_dt": "0.001",
+    "dur": "0.05",
+    "cof": "0",
+    "contact_damping": "15",
+    "models": [
+        {
+            "id": 0,
+            "path": "openmbd_male_right_leg_compare.json",
+            "pos": "0.0 0.0 1.05",
+            "vel": "0.0 0.0 0.0",
+            "ang_vel": "0.0 0.0 0.0",
+            "joints": {
+                "hiprJnt": [
+                    0,
+                    10,
+                    0
+                ],
+                "kneerJnt": [
+                    0,
+                    10,
+                    0
+                ],
+                "rootJoint": [
+                    0.0,
+                    0.0,
+                    0.0
+                ],
+                "anklerJnt": [
+                    0.0,
+                    0.0,
+                    0.0
+                ],
+                "root_joint": [
+                    0.0,
+                    0.0,
+                    0.0
+                ]
+            },
+            "joint_vels": {
+                "kneerJnt": [
+                    0,
+                    -5,
+                    0
+                ],
+                "hiprJnt": [
+                    0,
+                    -5,
+                    0
+                ]
+            },
+            "joint_torques": {}
+        },
+        {
+            "id": 1,
+            "path": "openmbd_football.json",
+            "pos": "0.1 -0.1 0.2",
+            "vel": "0.0 0.0 0.0",
+            "ang_vel": "0.0 0.0 0.0",
+            "joints": {
+                "rootJoint": [
+                    0.0,
+                    0.0,
+                    0.0
+                ],
+                "root_joint": [
+                    0.0,
+                    0.0,
+                    0.0
+                ]
+            },
+            "joint_vels": {},
+            "joint_torques": {}
+        }
+    ]
+}
